@@ -1,9 +1,61 @@
+import cosas.*
 import camion.*
 
-describe "group of test for camion" {
+describe "Prueba de cargas" {
 
-  test "first test" {
-    assert.that(true)
+  test "Paquete de ladrillos pesa una tonelada" {
+    
+    paqueteDeLadrillos.agregarLadrillos(500)
+    assert.equals(1000, paqueteDeLadrillos.peso())
   }
 
+  test "Se Agregan 100 ladrillos, Se sacan 20 el resultado es 80" {
+    
+    paqueteDeLadrillos.agregarLadrillos(100)
+    paqueteDeLadrillos.sacarLadrillos(20)
+
+    assert.that(paqueteDeLadrillos.ladrillos() == 80)
+
+  }
+  test "El nivel de peligrosidad de paquete de ladrillos es de 2" {
+    
+    assert.equals(2, paqueteDeLadrillos.nivelDePeligrosidad())
+  }
+
+  test "La bateria anti aerea esta cargada el nivel de peligrosidad es 100 y pesa 300"{
+    
+    bateriaAntiaerea.cargarMisiles()
+
+    assert.that(bateriaAntiaerea.estaConMisiles())
+  }
+
+  test "La bateria anti aerea esta descargada el nivel de peligrosidad es 0 y pesa 200"{
+    
+    bateriaAntiaerea.descargarMisiles()
+
+    assert.notThat(bateriaAntiaerea.estaConMisiles())
+  }
+
+test "El embalaje tiene cubre residuos radioactivos con un peso de 30kg y el nivel de peligrosidad es de 100"{
+
+  residuosRadioactivos.agregarResiduos(30)
+  embalajeDeSeguridad.cosasACubrir([residuosRadioactivos])
+
+  assert.equals(30, embalajeDeSeguridad.peso())
+  assert.that(embalajeDeSeguridad.nivelDePeligrosidad() == 100)
+
+  
 }
+
+test "Al contenedor se le agrega 200kg de arena y 1500 ladrillos. Pesa 3300 y el nivel de peligrosidad es 2" {
+  
+  arenaAGranel.agregarArena(200)
+  paqueteDeLadrillos.agregarLadrillos(1500)
+  contenedorPortuario.cargarContenedor([arenaAGranel, paqueteDeLadrillos])
+
+  assert.equals(3300, contenedorPortuario.peso())
+  assert.that(contenedorPortuario.nivelDePeligrosidad() == 2)
+  
+}
+}
+
